@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { DistroboxContainersProvider } from "./sidebar";
+import { Container, DistroboxContainersProvider } from "./sidebar";
 
 export function activate(context: vscode.ExtensionContext) {
     const rootPath =
@@ -15,8 +15,17 @@ export function activate(context: vscode.ExtensionContext) {
         "distrobox",
         distroboxContainersProvider
     );
+
     vscode.commands.registerCommand(
         "distroboxvscode.refreshContainersList",
         () => distroboxContainersProvider.refresh()
+    );
+
+    // TODO: If container is stopped, start if befora calling attach
+    vscode.commands.registerCommand(
+        "distroboxvscode.attach",
+        (c: Container) => {
+            vscode.commands.executeCommand("remote-containers.attachToRunningContainerFromViewlet", c.name);
+        }
     );
 }

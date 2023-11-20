@@ -11,6 +11,9 @@
     ],
     "activationEvents": [],
     "main": "./out/extension.js",
+    "extensionDependencies": [
+        "ms-vscode-remote.remote-containers"
+    ],
     "contributes": {
         "viewsContainers": {
             "activitybar": [
@@ -36,6 +39,13 @@
                     "when": "view == distrobox",
                     "group": "navigation"
                 }
+            ],
+            "view/item/context": [
+                {
+                    "command": "distroboxvscode.attach",
+                    "when": "view == distrobox && viewItem == container",
+                    "group": "inline"
+                }
             ]
         },
         "commands": [
@@ -43,6 +53,11 @@
                 "command": "distroboxvscode.refreshContainersList",
                 "title": "Refresh Containers",
                 "icon": "$(refresh)"
+            },
+            {
+                "command": "distroboxvscode.attach",
+                "title": "Attach",
+                "icon": "$(arrow-right)"
             }
         ]
     },

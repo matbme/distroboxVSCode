@@ -52,7 +52,7 @@ export class DistroboxContainersProvider
     }
 }
 
-class Container extends vscode.TreeItem {
+export class Container extends vscode.TreeItem {
     constructor(
         public readonly id: string,
         public readonly name: string,
@@ -72,4 +72,6 @@ class Container extends vscode.TreeItem {
             this.iconPath = new vscode.ThemeIcon("dash");
         }
     }
+
+    contextValue = "container";
 }
