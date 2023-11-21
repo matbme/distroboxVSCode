@@ -39,7 +39,7 @@ export class DistroboxContainersProvider
                     info[0],
                     info[1],
                     info[2],
-                    info[3],
+                    info.at(-1) || "",
                     vscode.TreeItemCollapsibleState.None
                 )
             );
@@ -66,12 +66,13 @@ export class Container extends vscode.TreeItem {
 
         if (status.startsWith("Up")) {
             this.iconPath = new vscode.ThemeIcon("run");
-        } else if (status.startsWith("Exited")) {
+            this.contextValue = "running-container";
+        } else if (status.startsWith("Exited") || status.startsWith("Created")) {
             this.iconPath = new vscode.ThemeIcon("primitive-square");
+            this.contextValue = "stopped-container";
         } else {
             this.iconPath = new vscode.ThemeIcon("dash");
+            this.contextValue = "container";
         }
     }
-
-    contextValue = "container";
 }

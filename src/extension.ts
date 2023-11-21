@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { Container, DistroboxContainersProvider } from "./sidebar";
+import { attachToContainer, startContainer, stopContainer } from "./containers";
 
 export function activate(context: vscode.ExtensionContext) {
     const rootPath =
@@ -20,12 +21,15 @@ export function activate(context: vscode.ExtensionContext) {
         "distroboxvscode.refreshContainersList",
         () => distroboxContainersProvider.refresh()
     );
-
-    // TODO: If container is stopped, start if befora calling attach
-    vscode.commands.registerCommand(
-        "distroboxvscode.attach",
-        (c: Container) => {
-            vscode.commands.executeCommand("remote-containers.attachToRunningContainerFromViewlet", c.name);
-        }
+    vscode.commands.registerCommand("distroboxvscode.start", (c: Container) => {
+        startContainer(c.name);
+        distroboxContainersProvider.refresh();
+    });
+    vscode.commands.registerCommand("distroboxvscode.stop", (c: Container) => {
+        stopContainer(c.name);
+        distroboxContainersProvider.refresh();
+    });
+    vscode.commands.registerCommand("distroboxvscode.attach", (c: Container) =>
+        attachToContainer(c.name)
     );
 }
