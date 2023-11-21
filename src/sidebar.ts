@@ -4,7 +4,7 @@ import { execSync } from "child_process";
 export class DistroboxContainersProvider
     implements vscode.TreeDataProvider<Container>
 {
-    constructor(private workspaceRoot: string | undefined) {}
+    constructor(private context: vscode.ExtensionContext) {}
 
     private _onDidChangeTreeData: vscode.EventEmitter<
         Container | undefined | null | void
@@ -44,7 +44,12 @@ export class DistroboxContainersProvider
                 )
             );
         }
-        return containers;
+
+        if (this.context.globalState.get("sortMode") === "alphabetically") {
+            return containers.sort((a, b) => a.name > b.name ? 1 : -1);
+        } else {
+            return containers.sort((a, b) => a.status > b.status ? 1 : -1);
+        }
     }
 
     refresh(): void {

@@ -38,6 +38,14 @@
                     "command": "distroboxvscode.refreshContainersList",
                     "when": "view == distrobox",
                     "group": "navigation"
+                },
+                {
+                    "command": "distroboxvscode.setAlphaSortMode",
+                    "when": "view == distrobox && distroboxvscode.sortMode == state"
+                },
+                {
+                    "command": "distroboxvscode.setStateSortMode",
+                    "when": "view == distrobox && distroboxvscode.sortMode == alphabetically"
                 }
             ],
             "view/item/context": [
@@ -58,6 +66,14 @@
                 "command": "distroboxvscode.refreshContainersList",
                 "title": "Refresh Containers",
                 "icon": "$(refresh)"
+            },
+            {
+                "command": "distroboxvscode.setAlphaSortMode",
+                "title": "Sort Alphabetically"
+            },
+            {
+                "command": "distroboxvscode.setStateSortMode",
+                "title": "Sort by Container State"
             },
             {
                 "command": "distroboxvscode.start",
