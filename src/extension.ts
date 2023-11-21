@@ -29,7 +29,11 @@ export function activate(context: vscode.ExtensionContext) {
         stopContainer(c.name);
         distroboxContainersProvider.refresh();
     });
-    vscode.commands.registerCommand("distroboxvscode.attach", (c: Container) =>
-        attachToContainer(c.name)
-    );
+    vscode.commands.registerCommand("distroboxvscode.attach", (c: Container) => {
+        if (c.contextValue !== "running-container") {
+            startContainer(c.name);
+            distroboxContainersProvider.refresh();
+        }
+        attachToContainer(c.name);
+    });
 }

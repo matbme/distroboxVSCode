@@ -52,6 +52,16 @@ export class DistroboxContainersProvider
     }
 }
 
+class AttachCommand implements vscode.Command {
+    title: string = "Attach";
+    command: string = "distroboxvscode.attach";
+    arguments?: any[] | undefined;
+
+    constructor(c: Container) {
+        this.arguments = [c];
+    }
+};
+
 export class Container extends vscode.TreeItem {
     constructor(
         public readonly id: string,
@@ -74,5 +84,7 @@ export class Container extends vscode.TreeItem {
             this.iconPath = new vscode.ThemeIcon("dash");
             this.contextValue = "container";
         }
+
+        this.command = new AttachCommand(this);
     }
 }
